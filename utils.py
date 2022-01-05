@@ -13,12 +13,10 @@ def get_candidates():
 
 def get_candidates_by_id(can_id):
     candidates = get_candidates()
-    print(candidates)
+
     for can in candidates:
         if can_id == can["id"]:
             return can
-
-
 
 
 def get_settings():
@@ -29,3 +27,20 @@ def get_settings():
 
         settings = json.load(fp)
         return settings
+
+
+def get_candidates_by_name(name):
+    candidates_found = []
+
+    candidates = get_candidates()
+    settings = get_settings()
+
+    for can in candidates:
+        if settings["case-sensitive"]:
+            if name in can["name"]:
+                candidates_found.append(can)
+        else:
+            if name.lower in can["name"].lower:
+                candidates_found.append(can)
+
+    return candidates_found
