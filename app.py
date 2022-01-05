@@ -14,12 +14,22 @@ def page_index():
     return "Приложение не работает"
 
 
+@app.route('/list')
+def page_list_of_candidate():
+
+    cans = get_candidates()
+
+    return render_template("list.html", cans=cans)
+
+
 @app.route('/candidate/<int:can_id>')
 def page_single_candidate(can_id):
 
     can = get_candidates_by_id(can_id)
 
     return render_template("candidate.html", can=can)
+
+
 
 
 app.run()
