@@ -44,3 +44,20 @@ def get_candidates_by_name(name):
                 candidates_found.append(can)
 
     return candidates_found
+
+
+def get_candidates_by_skills(skill_name):
+    candidates_found = []
+
+    candidates = get_candidates()
+    settings = get_settings()
+
+    for can in candidates:
+        if settings["case-sensitive"]:
+            if skill_name in can["skills"]:
+                candidates_found.append(can)
+        else:
+            if skill_name.lower in can["skills"].lower:
+                candidates_found.append(can)
+
+    return candidates_found

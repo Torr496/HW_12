@@ -2,7 +2,7 @@ from flask import Flask, render_template, request
 
 app = Flask(__name__)
 
-from utils import get_settings, get_candidates, get_candidates_by_id, get_candidates_by_name
+from utils import get_settings, get_candidates, get_candidates_by_id, get_candidates_by_name, get_candidates_by_skills
 
 
 @app.route('/')
@@ -34,15 +34,19 @@ def page_single_candidate(can_id):
 def page_search_by_name():
 
     name = request.args['name']
-
     cans = get_candidates_by_name(name)
-
     cans_count = len(cans)
 
     return render_template("search.html", cans=cans, cans_count=cans_count)
 
 
+@app.route('/skill/<skill_name>')
+def page_search_by_skill(skill_name):
 
+    cans = get_candidates_by_skills(skill_name)
+    cans_count = len(cans)
+
+    return render_template("skill.html", skill_name=skill_name, cans=cans, cans_count=cans_count)
 
 
 
